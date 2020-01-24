@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Table V04</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+<!--===============================================================================================-->
+</head>
+<body>
+
+	<div class="limiter">
+		<div class="container-table100">
+			<div class="wrap-table100">
+
+				<div class="table100 ver3 m-b-110">
+					<div class="table100-head">
+						<table>
+							<thead>
+								<tr class="row100 head">
+									<th class="cell100 column1">Runner</th>
+									<th class="cell100 column2">Points</th>
+									<th class="cell100 column3">Average Time</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+
+					<div id="div1" class="table100-body js-pscroll">
+
+
+						<script>
+							var totalRows = 5;
+							var cellsInRow = 5;
+							var min = 1;
+							var max = 10;
+
+									function drawTable() {
+											// get the reference for the body
+											var div1 = document.getElementById('div1');
+
+											// creates a <table> element
+											var tbl = document.createElement("table");
+
+											// creating rows
+											for (var r = 0; r < totalRows; r++) {
+													var row = document.createElement("tr");
+
+										 // create cells in row
+													 for (var c = 0; c < cellsInRow; c++) {
+															var cell = document.createElement("td");
+									getRandom = Math.floor(Math.random() * (max - min + 1)) + min;
+															var cellText = document.createTextNode(Math.floor(Math.random() * (max - min + 1)) + min);
+															cell.appendChild(cellText);
+															row.appendChild(cell);
+													}
+
+								tbl.appendChild(row); // add the row to the end of the table body
+											}
+
+									 div1.appendChild(tbl); // appends <table> into <div1>
+							}
+							window.onload=drawTable;
+							</script>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+<!--===============================================================================================-->
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script>
+		$('.js-pscroll').each(function(){
+			var ps = new PerfectScrollbar(this);
+
+			$(window).on('resize', function(){
+				ps.update();
+			})
+		});
+
+
+	</script>
+<!--===============================================================================================-->
+	<script src="js/main.js"></script>
+	<script type="text/javascript" src="js/snap-league-results-pre-alpha.json"></script>
+	<script src="js/snapLeague.js"></script>
+
+</body>
+</html>

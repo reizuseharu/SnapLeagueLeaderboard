@@ -97,8 +97,8 @@ function drawTable(pointLeaderboard, averageTimeLeaderboard, currentLinealChampi
   })
 }
 
-
-$.getJSON("js/snap-league-results-pre-alpha.json", function(json){
+let raceInfoFile = "https://gist.githubusercontent.com/reizuseharu/7b71bcb7cb253b0d0190225dc1699e35/raw/snap-league-results-pre-alpha.json"
+$.getJSON(raceInfoFile, function(json){
   races = json;
 
   let [pointLeaderboard, averageTimeLeaderboard, averagePointsLeaderboard, currentLinealChampion] = createLeaderboard(races);

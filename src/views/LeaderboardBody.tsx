@@ -1,33 +1,33 @@
-import React from 'react';
+import React from 'react'
 
-import withStyles from '@material-ui/core/styles/withStyles';
+import withStyles from '@material-ui/core/styles/withStyles'
 
-import dashboardStyle from '@assets/jss/material-dashboard-react/views/dashboardStyle';
+import dashboardStyle from '@assets/jss/material-dashboard-react/views/dashboardStyle'
 import {
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableRow
-} from "@material-ui/core";
-import {createLeaderboard, Race, sortLeaderboard} from "@services/leaderboardGenerator";
+} from "@material-ui/core"
+import {createLeaderboard, Race, sortLeaderboard} from "@services/leaderboardGenerator"
 
 interface Props {
-  location: any;
-  history: any;
+  location: any
+  history: any
 }
 
 interface State {
-  pointLeaderboard: Map<string, number>;
-  averageTimeLeaderboard: Map<string, number>;
-  averagePointsLeaderboard: Map<string, number>;
-  sortedPointLeaderboard: Map<string, number>;
-  currentLinealChampion: string;
+  pointLeaderboard: Map<string, number>
+  averageTimeLeaderboard: Map<string, number>
+  averagePointsLeaderboard: Map<string, number>
+  sortedPointLeaderboard: Map<string, number>
+  currentLinealChampion: string
 }
 
 class Dashboard extends React.Component<Props, State> {
   constructor(props: Props) {
-    super(props);
+    super(props)
 
     this.state = {
       pointLeaderboard: new Map(),
@@ -35,35 +35,35 @@ class Dashboard extends React.Component<Props, State> {
       averagePointsLeaderboard: new Map(),
       sortedPointLeaderboard: new Map(),
       currentLinealChampion: ""
-    };
+    }
 
-    this.handleChange = this.handleChange.bind(this);
+    this.handleChange = this.handleChange.bind(this)
   }
 
-  handleChange = () => {};
+  handleChange = () => {}
 
   async componentWillMount() {
-    let raceFile: string = "https://gist.githubusercontent.com/reizuseharu/7b71bcb7cb253b0d0190225dc1699e35/raw/snap-league-results-pre-alpha.json";
-    let raceResponse: Response = await fetch(raceFile);
+    const raceFile: string = "https://gist.githubusercontent.com/reizuseharu/7b71bcb7cb253b0d0190225dc1699e35/raw/snap-league-results-pre-alpha.json"
+    const raceResponse: Response = await fetch(raceFile)
 
-    let races: Race[] = await raceResponse.json();
+    const races: Race[] = await raceResponse.json()
 
     // @ts-ignore
-    let [pointLeaderboard, averageTimeLeaderboard, averagePointsLeaderboard, currentLinealChampion]: [Map<string, number>, Map<string, number>, Map<string, number>, string] = createLeaderboard(races);
-    let sortedPointLeaderboard: Map<string, number> = sortLeaderboard(pointLeaderboard);
+    const [pointLeaderboard, averageTimeLeaderboard, averagePointsLeaderboard, currentLinealChampion]: [Map<string, number>, Map<string, number>, Map<string, number>, string] = createLeaderboard(races)
+    const sortedPointLeaderboard: Map<string, number> = sortLeaderboard(pointLeaderboard)
 
-    console.log("Working");
+    console.log("Working")
 
     this.setState({
-      pointLeaderboard: pointLeaderboard,
-      averageTimeLeaderboard: averageTimeLeaderboard,
-      averagePointsLeaderboard: averagePointsLeaderboard,
-      sortedPointLeaderboard: sortedPointLeaderboard,
-      currentLinealChampion: currentLinealChampion
-    });
+      pointLeaderboard,
+      averageTimeLeaderboard,
+      averagePointsLeaderboard,
+      sortedPointLeaderboard,
+      currentLinealChampion
+    })
 
-    console.dir(this.state);
-    return Promise.resolve();
+    console.dir(this.state)
+    return Promise.resolve()
   }
 
   render() {
@@ -90,12 +90,12 @@ class Dashboard extends React.Component<Props, State> {
                 <TableCell align="center" style={(() => { if (runnerName === this.state.currentLinealChampion) return {color: "gold"}})()}>{runnerName}</TableCell>
                 <TableCell align="center">{points}</TableCell>
                 <TableCell align="center">{this.state.averageTimeLeaderboard.get(runnerName)}</TableCell>
-              </TableRow>;
+              </TableRow>
             })}
           </TableBody>
         </Table>
       </div>
-    );
+    )
   }
 }
 
@@ -103,4 +103,4 @@ class Dashboard extends React.Component<Props, State> {
 //   classes: PropTypes.object.isRequired
 // };
 
-export default withStyles(dashboardStyle)(Dashboard);
+export default withStyles(dashboardStyle)(Dashboard)

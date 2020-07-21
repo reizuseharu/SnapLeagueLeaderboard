@@ -2,7 +2,7 @@ import React from 'react';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import dashboardStyle from '../../assets/jss/material-dashboard-react/views/dashboardStyle';
+import dashboardStyle from '@assets/jss/material-dashboard-react/views/dashboardStyle';
 import {
   Table,
   TableBody,
@@ -10,7 +10,7 @@ import {
   TableHead,
   TableRow
 } from "@material-ui/core";
-import {createLeaderboard, Race, sortLeaderboard} from "./leaderboardGenerator";
+import {createLeaderboard, Race, sortLeaderboard} from "@services/leaderboardGenerator";
 
 interface Props {
   location: any;

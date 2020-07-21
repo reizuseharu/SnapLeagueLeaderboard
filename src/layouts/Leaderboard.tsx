@@ -7,10 +7,10 @@ import 'perfect-scrollbar/css/perfect-scrollbar.css';
 // @material-ui/core components
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import dashboardStyle from '../assets/jss/material-dashboard-react/layouts/dashboardStyle';
+import dashboardStyle from '@assets/jss/material-dashboard-react/layouts/dashboardStyle';
 
-import image from 'assets/img/sidebar-2.jpg';
-import LeaderboardBody from "../views/DartsApp/LeaderboardBody";
+import image from '@assets/img/sidebar-2.jpg';
+import LeaderboardBody from "@views/LeaderboardBody";
 
 interface Props {
   classes: any;
@@ -38,7 +38,7 @@ class Leaderboard extends React.Component<Props, State> {
       mobileOpen: false
     };
   }
-  
+
   handleImageClick = (i: string) => {
     this.setState({ image: i });
   };

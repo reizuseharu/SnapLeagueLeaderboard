@@ -3,10 +3,6 @@ import React from 'react'
 // creates a beautiful scrollbar
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import 'perfect-scrollbar/css/perfect-scrollbar.css'
-// @material-ui/core components
-import withStyles from '@material-ui/core/styles/withStyles'
-
-import dashboardStyle from '@assets/jss/material-dashboard-react/layouts/dashboardStyle'
 
 import image from '@assets/img/sidebar-2.jpg'
 import LeaderboardBody from "@views/LeaderboardBody"
@@ -96,4 +92,4 @@ class Leaderboard extends React.Component<Props, State> {
   }
 }
 
-export default withStyles(dashboardStyle)(Leaderboard)
+export default Leaderboard

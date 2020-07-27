@@ -1,8 +1,5 @@
 import React from 'react'
 
-import withStyles from '@material-ui/core/styles/withStyles'
-
-import dashboardStyle from '@assets/jss/material-dashboard-react/views/dashboardStyle'
 import {
   Table,
   TableBody,
@@ -99,8 +96,4 @@ class Dashboard extends React.Component<Props, State> {
   }
 }
 
-// Dashboard.propTypes = {
-//   classes: PropTypes.object.isRequired
-// };
-
-export default withStyles(dashboardStyle)(Dashboard)
+export default Dashboard

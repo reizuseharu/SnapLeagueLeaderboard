@@ -1,3 +1,5 @@
+import background from "@assets/img/background.png"
+import {rankBackgroundColor, rankColor, rankImage} from "@services/rank"
 import React from 'react'
 
 import {
@@ -8,6 +10,7 @@ import {
   TableRow
 } from "@material-ui/core"
 import {createLeaderboard, Race, sortLeaderboard} from "@services/leaderboardGenerator"
+import {ordinal_suffix_of} from "@services/utility"
 
 interface Props {
   location: any
@@ -68,6 +71,7 @@ class Dashboard extends React.Component<Props, State> {
       <div style={{
         height:"100vh",
         backgroundColor: "#99CCFF",
+        backgroundImage: `url(${background})`,
         display: "flex",
         justifyContent: "center",
         alignItems: "center"}}>
@@ -76,17 +80,19 @@ class Dashboard extends React.Component<Props, State> {
           marginRight: "20%",
           width: "60%"
         }}>
-          <TableHead style={{backgroundColor: "#3390FF"}}>
-            <TableCell align="center">Runner</TableCell>
-            <TableCell align="center">Points</TableCell>
-            <TableCell align="center">Average Time</TableCell>
+          <TableHead style={{backgroundColor: "#000000", opacity: 0.7}}>
+            <TableCell align="center" style={{color: "#FFFFFF"}}><strong>Rank</strong></TableCell>
+            <TableCell align="center" style={{color: "#FFFFFF"}}><strong>Runner</strong></TableCell>
+            <TableCell align="center" style={{color: "#FFFFFF"}}><strong>Points</strong></TableCell>
+            <TableCell align="center" style={{color: "#FFFFFF"}}><strong>Average Time</strong></TableCell>
           </TableHead>
           <TableBody>
             {Array.from(this.state.sortedPointLeaderboard).map(([runnerName, points], index) => {
-              return <TableRow style={(() => { if (index % 2 === 1) {return {backgroundColor: "#BBBBBB"}} else {return {backgroundColor: "#B19CD9"}}})()}>
-                <TableCell align="center" style={(() => { if (runnerName === this.state.currentLinealChampion) return {color: "gold"}})()}>{runnerName}</TableCell>
-                <TableCell align="center">{points}</TableCell>
-                <TableCell align="center">{this.state.averageTimeLeaderboard.get(runnerName)}</TableCell>
+              return <TableRow style={rankBackgroundColor(index)}>
+                <TableCell align="center" style={rankColor(index)}><img src={rankImage(index)} alt=""/>{ordinal_suffix_of(index + 1)}</TableCell>
+                <TableCell align="center" style={(() => { if (runnerName === this.state.currentLinealChampion) {return {color: "gold"}} else {return {color: "#FFFFFF"}} })()}><strong>{runnerName}</strong></TableCell>
+                <TableCell align="center" style={{color: "#FFFFFF"}}>{points}</TableCell>
+                <TableCell align="center" style={{color: "#FFFFFF"}}>{this.state.averageTimeLeaderboard.get(runnerName) || "--"}</TableCell>
               </TableRow>
             })}
           </TableBody>

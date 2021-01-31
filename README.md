@@ -10,3 +10,11 @@
 ---
 
 Snap League Leaderboard prototype
+
+## Deploy
+
+Run `npm run deploy`
+
+### Debug
+
+If error on deploy, [such as permission](https://stackoverflow.com/questions/29297154/github-invalid-username-or-password): use Personal Access Token

@@ -1,7 +1,7 @@
 import background from "@assets/img/background.png"
 import {rankBackgroundColor, rankColor, rankImage} from "@services/rank"
 import React from 'react'
-import qs from 'query-string'
+import { RouteComponentProps } from 'react-router';
 
 import {
   Table,
@@ -17,6 +17,7 @@ import {leagueToFileTag} from "@utils/constants"
 interface Props {
   location: any
   history: any
+  match: any
 }
 
 interface State {
@@ -27,7 +28,7 @@ interface State {
   currentLinealChampion: string
 }
 
-class Dashboard extends React.Component<Props, State> {
+class Dashboard extends React.Component<Props & RouteComponentProps, State> {
   constructor(props: Props) {
     super(props)
 
@@ -45,7 +46,7 @@ class Dashboard extends React.Component<Props, State> {
   handleChange = () => {}
 
   async componentWillMount() {
-    let leagueName: string = qs.parse(this.props.location.search).league as string
+    let leagueName: string = this.props.match.params.league
     if (leagueName === undefined) {
       leagueName = "alpha"
     }

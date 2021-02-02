@@ -6,11 +6,13 @@ import 'perfect-scrollbar/css/perfect-scrollbar.css'
 
 import image from '@assets/img/sidebar-2.jpg'
 import LeaderboardBody from "@views/LeaderboardBody"
+import {RouteComponentProps} from "react-router"
 
 interface Props {
   classes: any
   location: any
   history: any
+  match: any
 }
 
 interface State {
@@ -21,7 +23,7 @@ interface State {
   mobileOpen: boolean
 }
 
-class Leaderboard extends React.Component<Props, State> {
+class Leaderboard extends React.Component<Props & RouteComponentProps, State> {
   refs: any
   constructor(props: Props) {
     super(props)
@@ -87,7 +89,7 @@ class Leaderboard extends React.Component<Props, State> {
   render() {
     const { classes, ...rest } = this.props
     return (
-      <LeaderboardBody location={this.props.location} history={this.props.history} />
+      <LeaderboardBody location={this.props.location} history={this.props.history} match={this.props.match}/>
     )
   }
 }

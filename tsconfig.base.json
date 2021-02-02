@@ -11,7 +11,9 @@
       "@assets/*": ["assets/*"],
       "@components/*": ["components/*"],
       "@layouts/*": ["layouts/*"],
+      "@models/*": ["models/*"],
       "@services/*": ["services/*"],
+      "@utils/*": ["utilities/*"],
       "@views/*": ["views/*"]
     },
     "allowJs": true,

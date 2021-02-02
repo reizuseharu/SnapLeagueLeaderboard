@@ -1,6 +1,7 @@
 import background from "@assets/img/background.png"
 import {rankBackgroundColor, rankColor, rankImage} from "@services/rank"
 import React from 'react'
+import qs from 'query-string'
 
 import {
   Table,
@@ -11,6 +12,7 @@ import {
 } from "@material-ui/core"
 import {createLeaderboard, Race, sortLeaderboard} from "@services/leaderboardGenerator"
 import {ordinal_suffix_of} from "@services/utility"
+import {leagueToFileTag} from "@utils/constants"
 
 interface Props {
   location: any
@@ -43,7 +45,13 @@ class Dashboard extends React.Component<Props, State> {
   handleChange = () => {}
 
   async componentWillMount() {
-    const raceFile: string = "https://gist.githubusercontent.com/reizuseharu/7b71bcb7cb253b0d0190225dc1699e35/raw/snap-league-results-pre-alpha.json"
+    let leagueName: string = qs.parse(this.props.location.search).league as string
+    if (leagueName === undefined) {
+      leagueName = "alpha"
+    }
+    const fileTag = leagueToFileTag.get(leagueName) as string
+
+    const raceFile: string = `https://gist.githubusercontent.com/reizuseharu/${fileTag}/raw/snap-league-results-${leagueName}.json`
     const raceResponse: Response = await fetch(raceFile)
 
     const races: Race[] = await raceResponse.json()

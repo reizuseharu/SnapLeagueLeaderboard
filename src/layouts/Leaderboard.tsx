@@ -1,5 +1,7 @@
+// @ts-nocheck
 /* eslint-disable */
-import React from 'react'
+import {AppBar, Tab, Tabs} from "@material-ui/core"
+import React from "react"
 // creates a beautiful scrollbar
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import 'perfect-scrollbar/css/perfect-scrollbar.css'
@@ -13,14 +15,22 @@ interface Props {
   location: any
   history: any
   match: any
+
 }
 
 interface State {
+  value: number
   image: string
   color: string
   hasImage: boolean
   fixedClasses: string
   mobileOpen: boolean
+  shouldShowLeaderboardPreAlpha: boolean
+  shouldShowLeaderboardAlpha: boolean
+  shouldShowLeaderboard1: boolean
+  shouldShowLeaderboard2: boolean
+  shouldShowLeaderboard3: boolean
+  shouldShowLeaderboard4: boolean
 }
 
 class Leaderboard extends React.Component<Props & RouteComponentProps, State> {
@@ -29,31 +39,75 @@ class Leaderboard extends React.Component<Props & RouteComponentProps, State> {
     super(props)
     this.state = {
       image,
+      value: 0,
       color: 'blue',
       hasImage: true,
       fixedClasses: 'dropdown show',
-      mobileOpen: false
+      mobileOpen: false,
+      shouldShowLeaderboardPreAlpha: false,
+      shouldShowLeaderboardAlpha: true,
+      shouldShowLeaderboard1: false,
+      shouldShowLeaderboard2: false,
+      shouldShowLeaderboard3: false,
+      shouldShowLeaderboard4: false
     }
+
+    this.showComponent = this.showComponent.bind(this)
   }
 
-  handleImageClick = (i: string) => {
-    this.setState({ image: i })
-  }
-
-  handleColorClick = (c: string) => {
-    this.setState({ color: c })
-  }
-
-  handleFixedClick = () => {
-    if (this.state.fixedClasses === 'dropdown') {
-      this.setState({ fixedClasses: 'dropdown show' })
-    } else {
-      this.setState({ fixedClasses: 'dropdown' })
+  showComponent(index: number) {
+    switch (index) {
+      case 0:
+        this.setState({ shouldShowLeaderboardPreAlpha: true })
+        this.setState({ shouldShowLeaderboardAlpha: false })
+        this.setState({ shouldShowLeaderboard1: false })
+        this.setState({ shouldShowLeaderboard2: false })
+        this.setState({ shouldShowLeaderboard3: false })
+        this.setState({ shouldShowLeaderboard4: false })
+        break
+      case 1:
+        this.setState({ shouldShowLeaderboardPreAlpha: false })
+        this.setState({ shouldShowLeaderboardAlpha: true })
+        this.setState({ shouldShowLeaderboard1: false })
+        this.setState({ shouldShowLeaderboard2: false })
+        this.setState({ shouldShowLeaderboard3: false })
+        this.setState({ shouldShowLeaderboard4: false })
+        break
+      case 2:
+        this.setState({ shouldShowLeaderboardPreAlpha: false })
+        this.setState({ shouldShowLeaderboardAlpha: false })
+        this.setState({ shouldShowLeaderboard1: true })
+        this.setState({ shouldShowLeaderboard2: false })
+        this.setState({ shouldShowLeaderboard3: false })
+        this.setState({ shouldShowLeaderboard4: false })
+        break
+      case 3:
+        this.setState({ shouldShowLeaderboardPreAlpha: false })
+        this.setState({ shouldShowLeaderboardAlpha: false })
+        this.setState({ shouldShowLeaderboard1: false })
+        this.setState({ shouldShowLeaderboard2: true })
+        this.setState({ shouldShowLeaderboard3: false })
+        this.setState({ shouldShowLeaderboard4: false })
+        break
+      case 4:
+        this.setState({ shouldShowLeaderboardPreAlpha: false })
+        this.setState({ shouldShowLeaderboardAlpha: false })
+        this.setState({ shouldShowLeaderboard1: false })
+        this.setState({ shouldShowLeaderboard2: false })
+        this.setState({ shouldShowLeaderboard3: true })
+        this.setState({ shouldShowLeaderboard4: false })
+        break
+      case 5:
+        this.setState({ shouldShowLeaderboardPreAlpha: false })
+        this.setState({ shouldShowLeaderboardAlpha: false })
+        this.setState({ shouldShowLeaderboard1: false })
+        this.setState({ shouldShowLeaderboard2: false })
+        this.setState({ shouldShowLeaderboard3: false })
+        this.setState({ shouldShowLeaderboard4: true })
+        break
+      default:
+        break
     }
-  }
-
-  handleDrawerToggle = () => {
-    this.setState({ mobileOpen: !this.state.mobileOpen })
   }
 
   getRoute() {
@@ -86,10 +140,34 @@ class Leaderboard extends React.Component<Props & RouteComponentProps, State> {
     window.removeEventListener('resize', this.resizeFunction)
   }
 
+  handleChange = (event: React.ChangeEvent<{}>, value: number) => {
+    this.setState({ value: value })
+    this.showComponent(value)
+  }
+
   render() {
     const { classes, ...rest } = this.props
+    const { shouldShowLeaderboardPreAlpha, shouldShowLeaderboardAlpha, shouldShowLeaderboard1, shouldShowLeaderboard2, shouldShowLeaderboard3, shouldShowLeaderboard4 } = this.state
+
     return (
-      <LeaderboardBody location={this.props.location} history={this.props.history} match={this.props.match}/>
+      <div id={"container"}>
+        <AppBar position="static">
+          <Tabs value={this.state.value} onChange={this.handleChange} aria-label="simple tabs example">
+            <Tab label="Pre-Alpha" />
+            <Tab label="Alpha" />
+            <Tab label="Primera" />
+            <Tab label="Segundo" />
+            <Tab label="Tercera" />
+            <Tab label="Cuarto" />
+          </Tabs>
+        </AppBar>
+        { shouldShowLeaderboardPreAlpha && <LeaderboardBody location={this.props.location} history={this.props.history} match={this.props.match} league={"pre-alpha"}/> }
+        { shouldShowLeaderboardAlpha && <LeaderboardBody location={this.props.location} history={this.props.history} match={this.props.match} league={"alpha"}/> }
+        { shouldShowLeaderboard1 && <LeaderboardBody location={this.props.location} history={this.props.history} match={this.props.match} league={"1"}/> }
+        { shouldShowLeaderboard2 && <LeaderboardBody location={this.props.location} history={this.props.history} match={this.props.match} league={"2"}/> }
+        { shouldShowLeaderboard3 && <LeaderboardBody location={this.props.location} history={this.props.history} match={this.props.match} league={"3"}/> }
+        { shouldShowLeaderboard4 && <LeaderboardBody location={this.props.location} history={this.props.history} match={this.props.match} league={"4"}/> }
+      </div>
     )
   }
 }

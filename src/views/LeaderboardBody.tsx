@@ -18,6 +18,7 @@ interface Props {
   location: any
   history: any
   match: any
+  league: string
 }
 
 interface State {
@@ -46,7 +47,7 @@ class Dashboard extends React.Component<Props & RouteComponentProps, State> {
   handleChange = () => {}
 
   async componentWillMount() {
-    let leagueName: string = this.props.match.params.league
+    let leagueName: string = this.props.league
     if (leagueName === undefined) {
       leagueName = "alpha"
     }
